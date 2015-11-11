@@ -82,17 +82,17 @@ int main(int argc, char *argv[])
     perror("recv");
     exit(1);
   }
+  
+  //Not sure what the following line does
+  //buf[numbytes] = '\0';
 
-  buf[numbytes] = '\0';
-
-  printf("client: received '%s'\n",buf);
+  printf("client: received %s\n",buf);
 
   char *readingBuffer;
   int read;
   unsigned long lengthBuffer;
   read = getline(&readingBuffer, &lengthBuffer, stdin);
 
-  printf("input: %s\n", readingBuffer);
   if (send(sockfd, readingBuffer, lengthBuffer, 0) == -1) {
     perror("send");
   }
