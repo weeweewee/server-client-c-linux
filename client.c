@@ -77,14 +77,8 @@ int main(int argc, char *argv[])
   printf("client: connecting to %s\n", s);
 
   freeaddrinfo(servinfo); // all done with this structure
-  
-  int sendResult = send(sockfd, "Hello, world?", 13, 0);
-  if (sendResult == -1) {
-    perror("send");
-  }
-  printf("%d\n",sendResult);
 
-  if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+  if ((numbytes = recv(sockfd, buf, MAXDATASIZE, 0)) == -1) {
     perror("recv");
     exit(1);
   }
@@ -93,10 +87,17 @@ int main(int argc, char *argv[])
 
   printf("client: received '%s'\n",buf);
 
-  if (send(sockfd, "Hello, world?", MAXDATASIZE + 1, 0) == -1) {
+  char *readingBuffer;
+  int read;
+  unsigned long lengthBuffer;
+  read = getline(&readingBuffer, &lengthBuffer, stdin);
+
+  printf("input: %s\n", readingBuffer);
+  if (send(sockfd, readingBuffer, lengthBuffer, 0) == -1) {
     perror("send");
   }
 
+  free(readingBuffer);
   close(sockfd);
 
   return 0;
