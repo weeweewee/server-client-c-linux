@@ -1,7 +1,7 @@
 Playing with networking
 
 Compiled on OSX using
-gcc <filename> [-o <filename.out>]
+gcc filename [-o filename.out]
 
 Run using
-./<filename.out> [parameters]
+./filename.out [parameters]
